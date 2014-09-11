@@ -8,6 +8,14 @@
 module.exports = {
 
   attributes: {
+    email: {
+      type: 'email',
+      unique: true
+    },
+    passports: {
+      collection: 'passport',
+      via: 'user'
+    },
     operations: {
       collection: 'operation',
       via: 'user'

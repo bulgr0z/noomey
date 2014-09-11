@@ -34,7 +34,7 @@ module.exports.routes = {
 
   '/': {
     view: 'homepage'
-  }
+  },
 
   /***************************************************************************
   *                                                                          *
@@ -45,5 +45,29 @@ module.exports.routes = {
   * for configuration options and examples.                                  *
   *                                                                          *
   ***************************************************************************/
+
+  // routes callbacks auth
+  // see -> https://github.com/kasperisager/sails-generate-auth
+  //
+  'get /login': {
+    controller: 'AuthController',
+    action: 'login',
+    // locals: {
+    //   partials: {
+    //     top: '../layouts/auth/login-top',
+    //     bottom: '../layouts/auth/login-bottom',
+    //   }
+    // }
+  },
+
+  'get /logout': 'AuthController.logout',
+  'get /register': 'AuthController.register',
+
+  'post /auth/local': 'AuthController.callback',
+  'post /auth/local/:action': 'AuthController.callback',
+
+  'get /auth/:provider': 'AuthController.provider',
+  'get /auth/:provider/callback': 'AuthController.callback',
+  'get /auth/:provider/:action': 'AuthController.callback'
 
 };
