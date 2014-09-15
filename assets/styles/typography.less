@@ -1,0 +1,32 @@
+// TODO : host the fonts locally ?
+
+// font-family: 'Arvo', serif;
+// font-family: 'Open Sans', sans-serif;
+
+.font-arvo() {
+	font-family: 'Arvo', serif;
+} 
+.font-opensans() {
+	font-family: 'Open Sans', "Helvetica Neue", Arial, sans-serif;
+} 
+
+body {
+	.font-opensans();
+} 
+
+.typo-center {
+	text-align: center;
+}
+
+h1 {
+	font-size: 50px;
+	margin: 40px 0 40px 0;
+	.font-arvo();
+}
+h1.inpact-w { 
+	color: white; // `w` suffix => color: #fff
+	text-shadow: 1px 1px 1px black; // `inpact` prefix => black (opposite) text-shadow
+}
+h1.margin-huge {
+	margin: 120px 0 120px 0;
+}

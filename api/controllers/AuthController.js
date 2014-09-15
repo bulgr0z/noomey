@@ -47,11 +47,7 @@ var AuthController = {
     // Render the `auth/login.ext` view
     res.view({
       providers : providers
-    , errors    : req.flash('error')
-    , partials: {
-        top: '../layouts/auth/login-top',
-        bottom: '../layouts/auth/login-bottom',
-      },
+    , errors    : req.flash('error')  
     });
   },
 

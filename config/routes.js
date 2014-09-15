@@ -49,19 +49,30 @@ module.exports.routes = {
   // routes callbacks auth
   // see -> https://github.com/kasperisager/sails-generate-auth
   //
+
+  // AUTH 
+
   'get /login': {
     controller: 'AuthController',
     action: 'login',
-    // locals: {
-    //   partials: {
-    //     top: '../layouts/auth/login-top',
-    //     bottom: '../layouts/auth/login-bottom',
-    //   }
-    // }
+    locals: {
+      title: "Login", // dat is gud
+      description: "Log in your Noomey account",
+      keywords: ""
+    }
+  },
+
+  'get /register': {
+    controller: 'AuthController',
+    action: 'register',
+    locals: {
+      title: "Register", // dat is gud
+      description: "Register a fresh Noomey account",
+      keywords: ""
+    }
   },
 
   'get /logout': 'AuthController.logout',
-  'get /register': 'AuthController.register',
 
   'post /auth/local': 'AuthController.callback',
   'post /auth/local/:action': 'AuthController.callback',

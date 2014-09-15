@@ -1,0 +1,18 @@
+.btn {
+	margin: 10px;
+	padding: 0;
+}
+.btn::shadow #content > span { // `::shadow` -> accessing polymer shadow root
+	margin: 0.8em;
+}
+
+.btn.fw { // `fw` => `full-width`
+	width: 100%;
+	clear: both;
+}
+.btn-blue {
+	background: @blue;
+	color: white;
+	.font-opensans();
+	font-weight: bold;
+}
