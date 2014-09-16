@@ -21,7 +21,11 @@ module.exports = {
 		console.log(req.body.tags)
 		console.log(typeof req.body.tags)
 		console.log('save');
-	}
+	},
 
+	authTest: function(req, res) {
+		console.log('test auth');
+		res.view('debit/authtest');
+	}
 
 };

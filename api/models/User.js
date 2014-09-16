@@ -23,6 +23,8 @@ module.exports = {
     tags: {
       collection: 'tag',
       via: 'user'
-    }
+    },
+    // User's jwt token
+    jwt: { type: 'string' },
   }
 };

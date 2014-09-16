@@ -33,7 +33,8 @@
     "passport-facebook": "~1.0.3",
     "handlebars": "~2.0.0",
     "express3-handlebars": "~0.5.2",
-    "express-handlebars": "~1.0.3"
+    "express-handlebars": "~1.0.3",
+    "jsonwebtoken": "~1.1.2"
   },
   "scripts": {
     "start": "node app.js",

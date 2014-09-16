@@ -1,3 +1,5 @@
+var jwt = require('jsonwebtoken');
+
 /**
  * Authentication Controller
  *
@@ -118,6 +120,7 @@ var AuthController = {
    * @param {Object} res
    */
   callback: function (req, res) {
+
     function tryAgain () {
       // If an error was thrown, redirect the user to the login which should
       // take care of rendering the error messages.
@@ -129,14 +132,20 @@ var AuthController = {
       if (err) return tryAgain();
 
       req.login(user, function (loginErr) {
+
+        // console.log('logged in; error ? ', loginErr);
+        // console.log(req.session);
+        // console.log(req.user);
+
         if (loginErr) return tryAgain();
 
         // Upon successful login, send the user to the homepage were req.user
         // will available.
-        res.redirect('/');
+        res.redirect('/dashboard');
       });
     });
-  }
+  },
+
 };
 
 module.exports = AuthController;

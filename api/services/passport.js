@@ -1,6 +1,7 @@
 var path     = require('path')
   , url      = require('url')
-  , passport = require('passport');
+  , passport = require('passport')
+  , jwt      = require('jsonwebtoken');
 
 /**
  * Passport Service
@@ -98,22 +99,33 @@ passport.connect = function (req, query, profile, next) {
       //           authentication provider.
       // Action:   Create a new user and assign them a passport.
       if (!passport) {
+
         User.create(user, function (err, user) {
           if (err) {
             if(err.code === "E_VALIDATION"){
               req.flash('error', err.invalidAttributes.email ?
                 'Error.Passport.Email.Exists' : 'Error.Passport.User.Exists');
             }
+
             return next(err);
           }
 
           query.user = user.id;
 
-          Passport.create(query, function (err, passport) {
-            // If a passport wasn't created, bail out
-            if (err) return next(err);
 
-            next(err, user);
+          // set up a jwt token for the newly registered user, 
+          // update the user and create the passport
+          user.jwt = jwt.sign({user: user.id}, sails.config.jwt.secret);
+          user.save(function(err) {
+            
+            if (err) return next(err); // user update error
+
+            Passport.create(query, function (err, passport) {
+              // If a passport wasn't created, bail out
+              if (err) return next(err);
+              next(err, user);
+            });
+
           });
         });
       }
@@ -126,8 +138,12 @@ passport.connect = function (req, query, profile, next) {
           passport.tokens = query.tokens;
         }
 
+        // Refresh the jwt token
+        passport.jwt = jwt.sign({user: user.id}, sails.config.jwt.secret);
+
         // Save any updates to the Passport before moving on
         passport.save(function (err, passport) {
+
           if (err) return next(err);
 
           // Fetch the user associated with the Passport
@@ -141,12 +157,26 @@ passport.connect = function (req, query, profile, next) {
       if (!passport) {
         query.user = req.user.id;
 
-        Passport.create(query, function (err, passport) {
-          // If a passport wasn't created, bail out
+        // update user's JWT and register new passport
+        User.update({ 
+          id: req.user.id 
+        }, { 
+          jwt: jwt.sign({
+            user: req.user.id
+          }, sails.config.jwt.secret) 
+        }).exec(function(err, update) {
           if (err) return next(err);
 
-          next(err, req.user);
+          Passport.create(query, function (err, passport) {
+            // If a passport wasn't created, bail out
+            if (err) return next(err);
+
+            next(err, req.user);
+          });
+
         });
+
+        
       }
       // Scenario: The user is a nutjob or spammed the back-button.
       // Action:   Simply pass along the already established session.
