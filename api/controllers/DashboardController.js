@@ -1,3 +1,5 @@
+// Confus, ne fait pas partie de l'API : devrait s'appeller `WebappController` ?
+
 /**
  * DashboardController
  *
