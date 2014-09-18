@@ -12,7 +12,7 @@ module.exports = {
 	index: function(req, res) {
 
 		console.log(req.user);
-
+		
 		res.view('app/app', {
 			jwt: req.user.jwt
 		});

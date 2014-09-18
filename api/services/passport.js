@@ -63,13 +63,13 @@ passport.protocols = require('./protocols');
  * @param {Object}   profile
  * @param {Function} next
  */
-passport.connect = function (req, query, profile, next) {
+passport.connect = function (req, query, profile, next) { 
   var strategies = sails.config.passport
     , config     = strategies[profile.provider]
     , user       = {};
 
   // Set the authentication provider.
-  query.provider = req.param('provider');
+  query.provider = query.provider || req.param('provider');
 
   // If the profile object contains a list of emails, grab the first one and
   // add it to the user.
@@ -89,7 +89,7 @@ passport.connect = function (req, query, profile, next) {
   }
 
   Passport.findOne({
-    provider   : profile.provider
+    provider   : query.provider
   , identifier : query.identifier.toString()
   }, function (err, passport) {
     if (err) return next(err);

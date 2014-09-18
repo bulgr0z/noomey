@@ -53,6 +53,10 @@ module.exports.policies = {
 
   DebitController: {
     '*': [ 'passport', 'sessionAuth' ]
-  }
+  },
+
+  DashboardController: {
+    '*': [ 'passport', 'sessionAuth' ]
+  },
 
 };

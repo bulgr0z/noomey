@@ -38,7 +38,7 @@ module.exports = function(req, res, next) {
 	// `foreignJwt` may come form different sources (headers / query / etc...)
 	// for now assume a token sent into req.headers
 	var foreignJwt = req.headers.jwt;
-
+	
 	function forbidden() {
 		return res.forbidden('not allowed');
 	}
@@ -50,7 +50,7 @@ module.exports = function(req, res, next) {
 
 			// find the user of the jwt
 			User.findOne({ id: decode.user }).exec(function(err, user) {
-				
+
 				// if the jwt (headers vs db) match AND the token is not expired, user is auth
 				if (user.jwt === foreignJwt && (decode.iat + sails.config.jwt.ttl) > new Date().getTime() ) return next();
 
@@ -58,6 +58,8 @@ module.exports = function(req, res, next) {
 			});
 
 		});		
-	}
+	} 
+
+	return forbidden(); // no jwt found
 
 };

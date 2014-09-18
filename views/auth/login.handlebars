@@ -1,3 +1,34 @@
+<script type="text/javascript">
+  // GOOGLE API
+  (function() {
+   var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+   po.src = 'https://apis.google.com/js/client:plusone.js';
+   var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+ })();
+ // FACEBOOK API
+ (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+ window.fbAsyncInit = function() {
+  FB.init({
+    appId      : '1494808234100037',
+    cookie     : true,  // enable cookies to allow the server to access 
+                        // the session
+    xfbml      : true,  // parse social plugins on this page
+    version    : 'v2.1' // use version 2.1
+  });
+
+  // if already logged from facebook (ie. valid token, accepted app), skip the click
+  // FB.getLoginStatus(function(authResult) {
+  //   authHandler.facebook(authResult)
+  // });
+}
+</script>
+
 <section id="content" class="row bloc-page">
   
   <div id="color-background">
@@ -9,9 +40,15 @@
   <form class="col-lg-offset-4 col-lg-4 bloc">
     <paper-shadow z="1"></paper-shadow>
 
-    <a href="/auth/local"><paper-button label="flat button" class="btn-blue btn fw" raisedButton>Email</paper-button></a>
-    <a href="/auth/google"><paper-button label="flat button" class="btn-google btn fw" raisedButton>Google</paper-button></a>
-    <a href="/auth/facebook"><paper-button label="flat button" class="btn-facebook btn fw" raisedButton>Facebook</paper-button></a>
+    <!-- GOOGLE PLUS SIGN IN BUTTON -->
+    <paper-button label="flat button" onclick="googleSigninCallback()" id="gplussigninbtn" class="btn-google btn fw" raisedButton icon="social:post-gplus">Login with Google+</paper-button>
+    <!-- !GOOGLE PLUS -->
+
+    <!-- FACEBOOK LOGIN BUTTON -->
+    <paper-button label="flat button" class="btn-facebook btn fw" raisedButton icon="social:post-facebook" onclick="facebookSigninCallback()">Login with Facebook</paper-button>
+    <!-- !FACEBOOK -->
+
+    <paper-button label="flat button" class="btn-blue btn fw" raisedButton icon="mail" disabled="true">Login with email</paper-button>
   
   </form>
 

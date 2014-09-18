@@ -146,6 +146,25 @@ var AuthController = {
     });
   },
 
+  // client-side passport connect
+  connect: function(req, res) {
+
+    var query = req.body.query;
+    var profile = req.body.profile;
+    passport.connect(req, query, profile, function (err, user) {
+      if (err) return tryAgain();
+
+      req.login(user, function (loginErr) {
+
+        //if (loginErr) return tryAgain();
+        if (loginErr) console.log('err :( ', loginErr);
+
+        // successfull login, send the user a fresh JWT
+        res.send(user.jwt);
+      }); 
+    });
+  }
+
 };
 
 module.exports = AuthController;

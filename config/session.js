@@ -67,11 +67,13 @@ module.exports.session = {
   *                                                                          *
   ***************************************************************************/
 
-  // adapter: 'mongo',
-  // host: 'localhost',
-  // port: 27017,
-  // db: 'sails',
-  // collection: 'sessions',
+  adapter: 'mongo',
+  host: 'localhost',
+  port: 27017,
+  db: 'noomey',
+  collection: 'sessions',
+  username: 'noomey',
+  password: 'qp37mxpw',
 
   /***************************************************************************
   *                                                                          *
