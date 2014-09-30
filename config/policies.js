@@ -56,7 +56,11 @@ module.exports.policies = {
   },
 
   DashboardController: {
-    '*': [ 'passport', 'sessionAuth' ]
+    '*': [ 'passport', 'sessionAuth' ],
+    // no auth required to serve the angular webapp files; 
+    // auth should be required for api usage only
+    'index': true
+    //'index': ['passport']
   },
 
 };

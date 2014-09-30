@@ -35,6 +35,9 @@ var jwt = require('jsonwebtoken');
 
 module.exports = function(req, res, next) {
 
+	console.log('USER ? ', req.user);
+	console.log('SESSION ?', req.session)
+
 	// `foreignJwt` may come form different sources (headers / query / etc...)
 	// for now assume a token sent into req.headers
 	var foreignJwt = req.headers.jwt;

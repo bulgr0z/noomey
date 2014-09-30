@@ -10,7 +10,7 @@ function facebookSigninCallback() {
 
 // function to call after a clic on the G+ button
 function googleSigninCallback() {
-  console.log('g+ cb ')
+  //console.log('g+ cb ')
   gapi.auth.signIn({
     'callback': function(authResult) {
       authHandler.google(authResult);

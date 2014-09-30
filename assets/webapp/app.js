@@ -1,14 +1,17 @@
 'use strict';
 
+// if the server provides (or replace) the jwt, set it in sessionStorage
+if (loginJwt.length > 0) sessionStorage.jwt = loginJwt;
+if (!sessionStorage.jwt || sessionStorage.jwt.length < 1) {
+	alert('no jwt found on the client');
+}
+
 var noomeyControllers = angular.module('noomeyControllers', []);
 var noomeyServices = angular.module('noomeyServices', ['ngResource']);
-
-//var clevershootProviders = angular.module('clevershootProviders', ['ngResource']);
 
 var noomey = angular.module('noomey', [
 	'ngRoute',
 	'noomeyControllers',
-	/*'clevershootProviders'*/
 	'noomeyServices'
 ]);
 
@@ -54,4 +57,8 @@ noomey.config(['$routeProvider', '$locationProvider', '$httpProvider',
 			// 	redirectTo: '/'
 			// });
 
-	}]);
+	}]);	
+
+angular.element(document).ready(function() {
+	angular.bootstrap(document, ['noomey']);
+});
